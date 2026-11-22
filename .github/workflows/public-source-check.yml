@@ -18,6 +18,20 @@ jobs:
         shell: bash
         run: |
           python3 ci/public_audit.py
+      - name: Enforce space-free and URL-escape-free release ZIP names
+        shell: bash
+        run: |
+          python3 ci/verify_release_filename.py XB77_RedSun_OpenMW_Celestial_A_QA.zip --name-only
+          python3 ci/verify_release_filename.py XB77_Celestial_A_Native_Engine_Patch.zip --name-only
+          if python3 ci/verify_release_filename.py 'XB77%20Red%20Sun%20OpenMW.zip' --name-only; then
+            echo 'ERROR: encoded filename was incorrectly accepted'
+            exit 1
+          fi
+          if python3 ci/verify_release_filename.py 'XB77 Red Sun OpenMW.zip' --name-only; then
+            echo 'ERROR: space-containing filename was incorrectly accepted'
+            exit 1
+          fi
+
       - name: Prevent release claims while source is incomplete
         shell: bash
         run: |
