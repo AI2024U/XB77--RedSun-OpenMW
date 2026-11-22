@@ -44,3 +44,11 @@ This public repository contains the reviewable C++ source-transformation script 
 ## User-facing release note
 
 The currently distributed test texture package is an improved **static** A button. A true timed glow will only appear after a newly compiled OpenMW engine has been integrated and checked against the complete asset set. Avoid claims of a live 3–9-second glow for older test ZIPs.
+
+## Native compilation and private QA integration — November 21, 2026
+
+The OpenMW 0.52.0 RC1 native controller-overlay animation compiled successfully, and the intended 12 frame names were detected in the Windows engine binary. The new engine and matching MyGUI DLL were integrated into a separate **private test ZIP** with the existing isolated launcher, wizard, settings and animation resources preserved.
+
+This is **not an officially published executable release**. We have not yet verified the 3–9-second glow timing on Windows or completed full source/reproducibility, rights-clearance and SignPath release gates. The public repository continues to host source patches and documentation only, not the private QA binaries, logs, screenshots, or installation profile.
+
+Expected reviewable source: `src/patches/xb77_celestial_controller.py` and `ci/verify_celestial_assets.py`.
