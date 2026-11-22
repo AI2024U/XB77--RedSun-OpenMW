@@ -60,3 +60,10 @@ A private, compiled, unsigned Celestial A Windows ZIP passed a static package ve
 The audit also found that the compiled engine referenced a small Red Sun New Game badge whose resource was omitted from the previous QA ZIP. This missing image was restored using existing XB77 artwork. A subsequent integrity check passed. No test artifacts or binaries were published to this public repository.
 
 **This is not proof of runtime feature correctness.** The 3–9-second glow still needs Windows gameplay confirmation. Source-only fixes for subtitle/Options overlap and forcing the original static menu background are not included in this compiled QA engine; FOV flashing/tearing and SignPath/legal release requirements remain open.
+
+
+## Canonical distribution filenames and CI naming guard
+
+Use this safe name for the current private QA ZIP: `XB77_RedSun_OpenMW_Celestial_A_QA.zip`. The native patch uses `XB77_Celestial_A_Native_Engine_Patch.zip`. Filenames are ASCII with underscores instead of spaces; do not create a second ZIP whose literal filename contains percent-encoded separators.
+
+`ci/verify_release_filename.py` enforces the policy. Passing an actual ZIP path also audits archive member paths and tests all entry CRCs; passing `--name-only` is for CI artifact names before a ZIP exists. Public GitHub source safeguards run both positive and negative filename tests on pushes. The private build pipeline includes the matching naming check. No private build binary is published here.
