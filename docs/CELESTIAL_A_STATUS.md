@@ -67,3 +67,12 @@ The audit also found that the compiled engine referenced a small Red Sun New Gam
 Use this safe name for the current private QA ZIP: `XB77_RedSun_OpenMW_Celestial_A_QA.zip`. The native patch uses `XB77_Celestial_A_Native_Engine_Patch.zip`. Filenames are ASCII with underscores instead of spaces; do not create a second ZIP whose literal filename contains percent-encoded separators.
 
 `ci/verify_release_filename.py` enforces the policy. Passing an actual ZIP path also audits archive member paths and tests all entry CRCs; passing `--name-only` is for CI artifact names before a ZIP exists. Public GitHub source safeguards run both positive and negative filename tests on pushes. The private build pipeline includes the matching naming check. No private build binary is published here.
+
+
+## Latest sparkle and title-only menu badge (2026-11-21)
+
+- Based on a 19.7-second 1920×1080 Xbox controller-dialogue QA recording, the existing A-button rim animation was subtle at the actual 28px prompt size.
+- **Sparkle V2** provides 12 revised 256px PNG animation frames with brighter cyan-blue glow and distinct white four-point sparks while preserving the existing 1.2-second native cycle, randomized 3–9-second idle period, red A, controller bindings and accessibility behavior.
+- The revised texture resources were packaged and verified in a **private, unsigned QA ZIP**. No binary distributed from this public source repository and no completed Windows gameplay QA claimed.
+- Reviewed source patch `src/patches/xb77_release_mainmenu.py` now anchors the decorative Red Sun emblem **4px right of New Game** (previously left) and displays it only when **State_NoGame** (title/main menu), not during the in-game Start/pause menu.
+- This C++ main-menu behavior is **NOT compiled into the current Sparkle V2 QA executable**. A new native Windows engine build and real runtime test are required before calling the badge correction complete. Native subtitle/classic-background fixes remain on the separate build checklist.
