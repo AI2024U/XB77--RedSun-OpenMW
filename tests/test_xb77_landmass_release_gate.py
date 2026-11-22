@@ -79,7 +79,7 @@ class GateTests(unittest.TestCase):
     def test_no_esp_blocked(self):
         with tempfile.TemporaryDirectory() as d:
             f = Path(d)/"test.zip"
-            archive(f, {"Textures/tx_b_n_head.dds": b"test"})
+            archive(f, {"Textures/tx_b_n_head.dds": dds()})
             with self.assertRaisesRegex(ValueError, "missing ESP"):
                 validate_zip(f, set())
 
