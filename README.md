@@ -2,7 +2,9 @@
 
 **Public source and release-preparation repository** for an independent, accessibility-focused modification of the [OpenMW](https://openmw.org/) engine for *The Elder Scrolls III: Morrowind*.
 
-**Status (2026-11-21): release preparation; NOT a verified, signed public executable release.** Do not confuse this repository with an official OpenMW release. XB77 is not affiliated with or endorsed by the OpenMW team, Bethesda, or Microsoft.
+**Status (2026-11-21): release preparation; NOT a verified, signed public executable release.**
+
+**ACTIVE RELEASE BLOCKER (2026-11-21):** Direct double-click launches of the experimental OpenMW executable/launcher have been reported to produce a rendering problem despite successful tests through the isolated development launcher. A native GUI portable-entrypoint repair is undergoing Windows testing. **Do not redistribute or endorse a test ZIP as a finished public build.** Do not confuse this repository with an official OpenMW release. XB77 is not affiliated with or endorsed by the OpenMW team, Bethesda, or Microsoft.
 
 ## What XB77 changes
 
