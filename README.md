@@ -13,6 +13,7 @@
 - Native **Options → Prefs → XB77: High-Contrast Dialogue Selection** ON/OFF toggle.
 - Keyboard, mouse and Xbox controller menu support using the underlying OpenMW interface.
 - Standalone Windows x64 portable configuration and first-time installation wizard in the tested candidate.
+- Optional Celestial A visual polish: upgraded blue-silver Xbox A prompt; **timed 3–9s animation is source-prepared but not verified in a native public build**.
 
 ## Requirements
 
@@ -24,7 +25,7 @@ The tested development build targets **OpenMW 0.52.0 RC1**, not the latest OpenM
 
 There is **no completed signed release in this repository yet**. Gameplay has been tested during development, but the existing test ZIP has not passed the full public-source, asset-rights, and independent first-run audit. Do not upload a development ZIP to the public release tab as a final build.
 
-See [release readiness](docs/RELEASE_CHECKLIST.md), [source provenance](docs/SOURCE_PROVENANCE.md), and [build instructions](docs/BUILDING.md).
+See the [Celestial A implementation status](docs/CELESTIAL_A_STATUS.md), [release readiness](docs/RELEASE_CHECKLIST.md), [source provenance](docs/SOURCE_PROVENANCE.md), and [build instructions](docs/BUILDING.md).
 
 ## Privacy, security and trust
 
