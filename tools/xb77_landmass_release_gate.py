@@ -142,7 +142,7 @@ def verify_provenance(z, asset_names):
             for chunk in iter(lambda: f.read(1 << 20), b""):
                 h.update(chunk)
         if h.hexdigest() != declared[name]["sha256"].lower():
-            raise ValueError("provenance checksum mismatch: " + name
+            raise ValueError("provenance checksum mismatch: " + name)
 
 
 def validate_zip(filename, terrain_stems, *, release=False):
