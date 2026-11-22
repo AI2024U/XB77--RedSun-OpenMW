@@ -18,6 +18,8 @@
 - [ ] Confirm third-party DLL/Qt/font/runtime redistribution and license notices
 - [ ] Validate no private names, addresses, paths, emails, credentials, logs, recordings, private branches or old commits leak
 - [ ] **BLOCKER:** Both `openmw.exe` and `openmw-launcher.exe` must launch from a normal Windows double-click with the isolated portable profile; no CMD, BAT, or PowerShell wrappers; no pink/magenta rendering. A native-entrypoint candidate is in private QA, not yet verified
+- [ ] Recompile and Windows-test `src/patches/xb77_subtitles_options.py`: transient native NPC subtitles must hide while Options/Prefs is open, reappear when closed if still active, and retain native Subtitles toggle behavior
+- [ ] Verify new 24-pixel silver-rimmed A texture in 800x600 and 1920x1080 gameplay; controller bindings and B/D-pad remain unchanged
 - [ ] Fresh Windows installation with only legal Morrowind Data Files, no other OpenMW installed
 - [ ] Confirm native Xbox menus, mouse/keyboard focus, ON/OFF toggle persistence, save/load and one-only-highlight behavior
 - [ ] Verify portable logs/saves and uninstall instructions on a second machine
