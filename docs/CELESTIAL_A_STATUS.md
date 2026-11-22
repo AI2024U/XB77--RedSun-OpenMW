@@ -76,3 +76,20 @@ Use this safe name for the current private QA ZIP: `XB77_RedSun_OpenMW_Celestial
 - The revised texture resources were packaged and verified in a **private, unsigned QA ZIP**. No binary distributed from this public source repository and no completed Windows gameplay QA claimed.
 - Reviewed source patch `src/patches/xb77_release_mainmenu.py` now anchors the decorative Red Sun emblem **4px right of New Game** (previously left) and displays it only when **State_NoGame** (title/main menu), not during the in-game Start/pause menu.
 - This C++ main-menu behavior is **NOT compiled into the current Sparkle V2 QA executable**. A new native Windows engine build and real runtime test are required before calling the badge correction complete. Native subtitle/classic-background fixes remain on the separate build checklist.
+
+
+## New Game badge visual-anchor correction — 2026-11-21
+
+The user-supplied title-menu screenshots establish that the emblem must sit **immediately LEFT of the visible 'New' lettering**, with approximately **1 pixel of visual clearance**. The menu button image contains approximately 11 pixels of transparent left-side padding; anchoring to the raw button bounds leaves an unwanted gap.
+
+Updated native source patch:
+- `logoSize = 32`
+- `logoGap = 1`
+- `newGameTextLeftInset = 11`
+- X coordinate: `buttonBox.left + newGameButton.left + 11 - 32 - 1`
+- Visibility: `state == State_NoGame && newGameButton.visible`
+- Mouse/controller focus: disabled for the decorative logo
+
+The canonical private and public `xb77_release_mainmenu.py` patches now match and have been checked against the pinned OpenMW 0.52 RC1 menu code. The private manual Windows workflow has a guard for both the left-side anchor and title-only visibility. This is **source-ready, not yet compiled** into the prior Sparkle V2 QA executable. No new paid workflow has been triggered automatically.
+
+Local source-only delivery: `XB77_RedSun_Menu_Badge_1px_Anchor_Source_Fix.zip` (3 ZIP entries, CRC pass; SHA256 `96d1eb43714973e4909ec0c8cb42d2dba39e5ccdce48bbb7cf9706cdc062130a`). Do **not** tell users to extract a Python source patch into the running OpenMW game folder.
