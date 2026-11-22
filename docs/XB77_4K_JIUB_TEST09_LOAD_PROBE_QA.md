@@ -23,3 +23,18 @@
 ## Next real development
 
 Use proven loading route before investing in modeling. Then develop/verify *genuinely new* higher-resolution artwork and rig-compatible high-poly NIF geometry with improved seam continuity. Changing file dimensions alone cannot remove faceting or recover absent source detail. Do not count this prototype toward final asset-completion percentage. The user requested that hourly 4K automation remain paused; this is an on-demand development pass.
+
+## In-game Test 09 result — user video at 07:29:26 (November 22, 2026)
+
+Evidence: user supplied the 11.53-second OpenMW capture `OpenMW 2026-11-22 07-29-26.mp4`. Visual inspection of multiple frames confirms:
+
+- Jiub appears on the Imperial Prison Ship with his face **distinctively teal/green**, unlike his natural Dunmer skin, therefore the Test 09 diagnostic face texture path visibly resolves in the game.
+- Jiub's head is present. The huge yellow missing-resource polygons seen in Test 07 are absent from this footage.
+- Strong skin discontinuity remains at the **head-to-neck junction**: teal face against dark gray/brown torso and neck. This is a *deliberate diagnostic-color mismatch*, not acceptable production character art.
+- Original character silhouette is still angular at shoulders, arms and torso; Test 09 did not add high-poly vertices, improve bone weights, or repair seams.
+- The small XB77 cheek stamp is not unambiguously legible at the reviewed capture distance; load confirmation relies on the obvious teal face, not stamp readability.
+- This footage verifies a **working Jiub-specific face texture load in this user's Red Sun gameplay environment**, not full 4K perceptual detail, UV correctness for all textures, final geometry or all-race coverage.
+
+**Next step:** stop creating additional color-probe packages; develop genuinely repainted, coherent Jiub face/head-neck/body materials and actually higher-poly rig-compatible NIF geometry, then check at close distance under several lighting and animation states. Retain existing Red Sun portability and landmass exclusions. Source-derived textures and user video remain private and are not committed here.
+
+**Hourly automation remains paused** by user instruction.
