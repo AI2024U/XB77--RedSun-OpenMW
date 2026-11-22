@@ -2,6 +2,13 @@
 
 **Status (2026-11-21): Source work staged; runtime polish not fully tested. No signed public release.**
 
+## Celestial A quality and animation (2026-11-21 QA update)
+
+- The resource-only QA package upgrades `omw_steam_button_a.dds` from 128px to **256px DXT5 with 6 mip levels** and changes the native controller overlay layout from a 24px to a 28px A-image slot. It preserves all controller bindings and EXE/DLL hashes.
+- **Runtime animation is NOT yet installed in any public or local QA engine.** The stage-ready source patch is `src/patches/xb77_celestial_controller.py`, which adds a 12-frame, 1.2-second blue celestial rim glow with randomized 3–9-second idle delays.
+- The source kit includes the matching `xb77_celestial_a_00.png` through `xb77_celestial_a_11.png` frames. Those files must be installed to `resources/vfs/textures` when the C++ engine is rebuilt.
+- Native Windows compilation and actual in-game observation remain mandatory before stating the animation works. No change to existing D-pad/A behavior, accessibility toggle, or other game icons is intended.
+
 ## Controller A-button prompt
 
 - Requested UI design: light-red, glossy **A** controller prompt with white lettering.
