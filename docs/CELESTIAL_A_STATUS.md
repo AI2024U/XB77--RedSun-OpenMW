@@ -52,3 +52,11 @@ The OpenMW 0.52.0 RC1 native controller-overlay animation compiled successfully,
 This is **not an officially published executable release**. We have not yet verified the 3–9-second glow timing on Windows or completed full source/reproducibility, rights-clearance and SignPath release gates. The public repository continues to host source patches and documentation only, not the private QA binaries, logs, screenshots, or installation profile.
 
 Expected reviewable source: `src/patches/xb77_celestial_controller.py` and `ci/verify_celestial_assets.py`.
+
+## Archive-level QA findings — 2026-11-21
+
+A private, compiled, unsigned Celestial A Windows ZIP passed a static package verification audit: controller layout and high-contrast skins were included, all 12 animation PNGs matched compiled frame references, Windows GUI EXEs and DLL dependencies were present, and user-data folders remained separate.
+
+The audit also found that the compiled engine referenced a small Red Sun New Game badge whose resource was omitted from the previous QA ZIP. This missing image was restored using existing XB77 artwork. A subsequent integrity check passed. No test artifacts or binaries were published to this public repository.
+
+**This is not proof of runtime feature correctness.** The 3–9-second glow still needs Windows gameplay confirmation. Source-only fixes for subtitle/Options overlap and forcing the original static menu background are not included in this compiled QA engine; FOV flashing/tearing and SignPath/legal release requirements remain open.
