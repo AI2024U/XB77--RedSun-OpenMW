@@ -40,7 +40,12 @@ revised = '''        else
         // calculated position (saves and screen size change menu geometry).
         // Decorative widget never receives mouse/gamepad focus.
         constexpr int logoSize = 32;
-        constexpr int logoGap = 4; // tighter spacing to the RIGHT of New Game
+        // The vanilla menu_newgame texture has transparent left padding.
+        // Calibrated from the XB77 1648x928 title-screen QA screenshot:
+        // visual "New" begins ~11 pixels inside the button image.
+        // Place the badge's right edge 1px before the visible lettering.
+        constexpr int logoGap = 1;
+        constexpr int newGameTextLeftInset = 11;
         if (!mXB77RedSunLogo)
         {
             mXB77RedSunLogo = mMainWidget->createWidget<MyGUI::ImageBox>(
@@ -50,10 +55,13 @@ revised = '''        else
         }
         const Gui::ImageButton* newGameButton = mButtons.at("newgame");
         mXB77RedSunLogo->setCoord(
-            mButtonBox->getLeft() + newGameButton->getLeft() + newGameButton->getWidth() + logoGap,
+            mButtonBox->getLeft() + newGameButton->getLeft() + newGameTextLeftInset - logoSize - logoGap,
             mButtonBox->getTop() + newGameButton->getTop() + (newGameButton->getHeight() - logoSize) / 2,
             logoSize, logoSize);
-        // Only display the decorative emblem on the initial TITLE/MAIN menu.\n        // Hide it on the in-game Start/Pause menu, even though New Game exists there.\n        mXB77RedSunLogo->setVisible(\n            state == MWBase::StateManager::State_NoGame && newGameButton->getVisible());
+        // Only display the decorative emblem on the initial TITLE/MAIN menu.
+        // Hide it on the in-game Start/Pause menu, even though New Game exists there.
+        mXB77RedSunLogo->setVisible(
+            state == MWBase::StateManager::State_NoGame && newGameButton->getVisible());
     }
 }
 '''
