@@ -19,7 +19,9 @@
 - [ ] Validate no private names, addresses, paths, emails, credentials, logs, recordings, private branches or old commits leak
 - [ ] **BLOCKER:** Both `openmw.exe` and `openmw-launcher.exe` must launch from a normal Windows double-click with the isolated portable profile; no CMD, BAT, or PowerShell wrappers; no pink/magenta rendering. A native-entrypoint candidate is in private QA, not yet verified
 - [ ] Recompile and Windows-test `src/patches/xb77_subtitles_options.py`: transient native NPC subtitles must hide while Options/Prefs is open, reappear when closed if still active, and retain native Subtitles toggle behavior
-- [ ] Verify new 24-pixel silver-rimmed A texture in 800x600 and 1920x1080 gameplay; controller bindings and B/D-pad remain unchanged
+- [ ] Validate final 28-pixel blue-silver Celestial A texture at 800x600 and 1920x1080; preserve controller bindings and all other button prompts
+- [ ] Build a native engine with `src/patches/xb77_celestial_controller.py`, package all 12 animation frames and base DDS, then run `python ci/verify_celestial_assets.py "XB77 Red Sun OpenMW.zip"`
+- [ ] In-game Windows QA: confirm the A glow animates for ~1.2s with **3–9s delays** in inventory, main menu and NPC dialogue, without flicker or input regressions
 - [ ] Fresh Windows installation with only legal Morrowind Data Files, no other OpenMW installed
 - [ ] Confirm native Xbox menus, mouse/keyboard focus, ON/OFF toggle persistence, save/load and one-only-highlight behavior
 - [ ] Verify portable logs/saves and uninstall instructions on a second machine
