@@ -68,7 +68,7 @@
 +        if (!mEnabled || !(dt > 0.f) || !std::isfinite(dt))
 +            return;
 +
-+        auto* sound = MWBase::Environment::get().getSoundManager();
++        auto sound = MWBase::Environment::get().getSoundManager();
 +        const bool speaking = sound->sayActive(mReference);
 +        const float raw = speaking ? sound->getSaySoundLoudness(mReference) : 0.f;
 +        const float loudness = std::isfinite(raw) ? std::max(raw, 0.f) : 0.f;
