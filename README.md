@@ -1,3 +1,5 @@
+> **UPDATED 2026-11-23:** See [public-safe development status](docs/DEVELOPMENT_STATUS_2026-11-23.md). The following older Nov 21 release blockers remain open unless separately evidenced. This repository is not a signed or clean-machine-certified executable release.
+
 # XB77 Red Sun OpenMW
 
 **Public source and release-preparation repository** for an independent, accessibility-focused modification of the [OpenMW](https://openmw.org/) engine for *The Elder Scrolls III: Morrowind*.
