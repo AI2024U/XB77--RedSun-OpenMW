@@ -1,0 +1,122 @@
+--- a/apps/openmw/mwrender/npcanimation.cpp
++++ b/apps/openmw/mwrender/npcanimation.cpp
+@@ -1,4 +1,7 @@
+-#include "npcanimation.hpp"
++#include "npcanimation.hpp"
++
++#include <algorithm>
++#include <cmath>
+ 
+ #include <osg/Depth>
+ #include <osg/MatrixTransform>
+@@ -107,7 +110,13 @@
+ 
+         bool mEnabled;
+ 
+-        float mValue;
++        float mValue;
++        // Each rendered NPC head has its own speech envelope state.
++        float mSpeechOpen = 0.f;
++#ifdef XB77_SPEECH_DIAGNOSTICS
++        float mSpeechLogTimer = 0.f;
++        bool mSpeechPreviouslyActive = false;
++#endif
+ 
+     private:
+         void resetBlinkTimer();
+@@ -159,41 +168,60 @@
+         mBlinkTimer = -(2.0f + Misc::Rng::rollDice(6, prng));
+     }
+ 
+-    void HeadAnimationTime::update(float dt)
+-    {
+-        if (!mEnabled)
+-            return;
+-
+-        if (dt == 0.f)
+-            return;
+-
+-        if (!MWBase::Environment::get().getSoundManager()->sayActive(mReference))
+-        {
+-            mBlinkTimer += dt;
+-
+-            float duration = mBlinkStop - mBlinkStart;
+-
+-            if (mBlinkTimer >= 0 && mBlinkTimer <= duration)
+-            {
+-                mValue = mBlinkStart + mBlinkTimer;
+-            }
+-            else
+-                mValue = mBlinkStop;
+-
+-            if (mBlinkTimer > duration)
+-                resetBlinkTimer();
+-        }
+-        else
+-        {
+-            // FIXME: would be nice to hold on to the SoundPtr so we don't have to retrieve it every frame
+-            mValue = mTalkStart
+-                + (mTalkStop - mTalkStart)
+-                    * std::min(1.f,
+-                        MWBase::Environment::get().getSoundManager()->getSaySoundLoudness(mReference)
+-                            * 2); // Rescale a bit (most voices are not very loud)
+-        }
+-    }
+-
++    void HeadAnimationTime::update(float dt)
++    {
++        if (!mEnabled || !(dt > 0.f) || !std::isfinite(dt))
++            return;
++
++        auto* sound = MWBase::Environment::get().getSoundManager();
++        const bool speaking = sound->sayActive(mReference);
++        const float raw = speaking ? sound->getSaySoundLoudness(mReference) : 0.f;
++        const float loudness = std::isfinite(raw) ? std::max(raw, 0.f) : 0.f;
++        // Do not fabricate speech when this NPC has no active voice source.
++        const float target = speaking ? std::clamp(2.f * loudness, 0.f, 1.f) : 0.f;
++        const float step = std::min(dt, 0.1f);
++        const float tau = target > mSpeechOpen ? .045f : .090f;
++        const float response = -std::expm1(-step / tau);
++        mSpeechOpen = std::clamp(mSpeechOpen + (target - mSpeechOpen) * response, 0.f, 1.f);
++
++        if (!speaking && mSpeechOpen < .004f)
++        {
++            mSpeechOpen = 0.f;
++            mBlinkTimer += dt;
++
++            const float duration = mBlinkStop - mBlinkStart;
++            if (mBlinkTimer >= 0.f && mBlinkTimer <= duration)
++                mValue = mBlinkStart + mBlinkTimer;
++            else
++                mValue = mBlinkStop;
++
++            if (mBlinkTimer > duration)
++                resetBlinkTimer();
++        }
++        else
++        {
++            // Preserve NIF talk start/stop text-key range, including the fade-out.
++            mValue = mTalkStart + (mTalkStop - mTalkStart) * mSpeechOpen;
++        }
++
++#ifdef XB77_SPEECH_DIAGNOSTICS
++        // Private diagnostic build only: 10 Hz logging for Jiub, not every NPC.
++        if (mReference.getCellRef().getRefId() == ESM::RefId::stringRefId("chargen name"))
++        {
++            mSpeechLogTimer += dt;
++            if (mSpeechLogTimer >= 0.1f || speaking != mSpeechPreviouslyActive)
++            {
++                Log(Debug::Info) << "XB77_JIUB_SPEECH active=" << speaking
++                                 << " input=" << loudness << " target=" << target
++                                 << " filtered=" << mSpeechOpen << " morphTime=" << mValue
++                                 << " dt=" << dt;
++                mSpeechLogTimer = 0.f;
++            }
++            mSpeechPreviouslyActive = speaking;
++        }
++#endif
++    }
++
+     float HeadAnimationTime::getValue(osg::NodeVisitor*)
+     {
+         return mValue;
